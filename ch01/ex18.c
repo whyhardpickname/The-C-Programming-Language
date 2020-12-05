@@ -2,7 +2,7 @@
 
 #define MAXLINE 1000
 
-int getline(char s[], int maxline);
+int trim(char s[], int maxline);
 void copy(char to[], char from[]);
 
 int main()
@@ -11,7 +11,7 @@ int main()
 
     char line[MAXLINE];//currtent line
     
-    while ((len = getline(line, MAXLINE)) > 0)
+    while ((len = trim(line, MAXLINE)) > 0)
     {
         printf("%d %s", len, line);
     }
@@ -19,30 +19,27 @@ int main()
     return 0;
 }
 
-int getline(char s[], int lim)
+int trim(char s[], int lim)
 {
     int c;
-    int i, j;
+    int i;
+    int j = 0;
 
-    for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; i++)
+    for (i = 0; i < lim - 2 && (c = getchar()) != EOF && c != '\n'; i++)
     {
         s[i] = c;
     }
 
-    if (c == '\n')
-    {
-        s[i++] = c;
-    }
-
+    s[i++] = '\n';
     s[i] = '\0';
 
-    j = i - 1;
-    while (s[j] == ' ' || s[j] == '\t' || s[j] == '\n')
+    j = i - 2;
+    while (s[j] == ' ' || s[j] == '\t')
     {
         j--;
     }
     s[++j] = '\n';
     s[++j] = '\0';
 
-    return j;
+    return j - 1;
 }

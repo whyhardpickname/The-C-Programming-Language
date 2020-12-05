@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 #define MAXLINE 1000
-#define LOWER 7
+#define LOWER 4
 
-int getline(char s[], int maxline);
+int getLine(char s[], int maxline);
 void copy(char to[], char from[]);
 
 int main()
@@ -12,7 +12,7 @@ int main()
 
     char line[MAXLINE];//currtent line
     
-    while ((len = getline(line, MAXLINE)) > 0)
+    while ((len = getLine(line, MAXLINE)) > 0)
     {
         if (len > LOWER)
         {
@@ -23,21 +23,18 @@ int main()
     return 0;
 }
 
-int getline(char s[], int lim)
+int getLine(char s[], int lim)
 {
     int c;
     int i;
+    int j = 0;
 
-    for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; i++)
+    for (i = 0; i < lim - 2 && (c = getchar()) != EOF && c != '\n'; i++)
     {
         s[i] = c;
+        j++;
     }
-
-    if (c == '\n')
-    {
-        s[i++] = c;
-    }
-
-    s[i] = '\0';
+    s[j++] = '\n';
+    s[j] = '\0';
     return i;
 }
