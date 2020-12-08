@@ -1,20 +1,20 @@
 #include<stdio.h>
 
-#define LEN 10 //每行最大列数
+#define MAX_COLUMN 10 //每行允许最大列数
 #define INWORD 1 //位于单词之中为1,位于空格之中为0
 
 int main()
 {
     int c;
-    int column = 0;
     int cur = !INWORD;
     int last = !INWORD;
+    int column = 0;
     int counter = 0;
-    char token[LEN];
-    
+    char token[MAX_COLUMN];
+
     while ((c = getchar()) != EOF && c != '\n')
     {
-        if (c != ' ' || c != '\t')
+        if (c != ' ' && c != '\t')
         {
             cur = INWORD;
         }
@@ -23,37 +23,48 @@ int main()
             cur = !INWORD;
         }
 
-        if (cur != last)
+        if (cur == last)
         {
-            if (column < LEN)
+            token[counter++] = c;
+        }
+        else
+        {
+            if (column - 1 < MAX_COLUMN)
             {
-                while(--counter >= 0)
+                for (int i = 0; i < counter; i++)
                 {
-                    putchar(token[counter]);
+                    putchar(token[i]);
                 }
             }
             else
             {
-                column = 0;
                 putchar('\n');
                 if (last == INWORD)
                 {
-                    while(--counter >= 0)
-                    {   
-                        putchar(token[counter]);
+                    for (int i = 0; i < counter; i++)
+                    {
+                        putchar(token[i]);
                     }
                 }
+                column %= MAX_COLUMN;
             }
             counter = 0;
+            token[counter++] = c;
         }
-        token[counter++] = c;
         column++;
         last = cur;
     }
-    if (last == INWORD)
+    
+    if (column - 1 >= MAX_COLUMN)
     {
-        printf("%s", token);
+        putchar('\n');
     }
-    printf("\n");
-    return 0;
+
+    for (int i = 0; i < counter; i++)
+    {
+        putchar(token[i]);
+    }
+
+    putchar('\n');
+    return 0; 
 }
