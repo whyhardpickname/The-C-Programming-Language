@@ -3,6 +3,11 @@
 #define MAX_COLUMN 10 //每行允许最大列数
 #define INWORD 1 //位于单词之中为1,位于空格之中为0
 
+/*
+    原理:token每接收一组非空字符或空字符后,如果当前位置小于最大列数,输出token.
+        反之如果token是非空字符,换行输出.如果是空字符,换行.同时位置重置为0
+    缺点:无法处理换行符和空行
+*/
 int main()
 {
     int c;
@@ -11,8 +16,8 @@ int main()
     int column = 0;
     int counter = 0;
     char token[MAX_COLUMN];
-
-    while ((c = getchar()) != EOF && c != '\n')
+    printf("0123456789\n");
+    while ((c = getchar()) != EOF)
     {
         if (c != ' ' && c != '\t')
         {
@@ -46,7 +51,7 @@ int main()
                         putchar(token[i]);
                     }
                 }
-                column %= MAX_COLUMN;
+                column = counter;
             }
             counter = 0;
             token[counter++] = c;
