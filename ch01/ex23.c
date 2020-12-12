@@ -1,39 +1,42 @@
 #include<stdio.h>
 
-/* "comment */
-#define TEST "/* string */" /* "comment" */ 
-#define LEN 4
-
 int main()
 {
-    int double_quote = '"';
-    int single_quote = '\'';
-    int slash = '/';
-    int star = '*';
-    int c = ' ';
-    char stack[LEN];
-    int count;
-    while ((c = getchar()) != EOF)
+    int cur;
+    int last = ' ';
+
+    while ((cur = getchar()) != EOF)
     {
-        if (count == 0)
+        if (cur == '"')
         {
-            if (c == '"' || c == '\'')
+            putchar(cur);
+            last = cur;
+            while ((cur = getchar()) != last)
             {
-                stack[count++] = c;
-                putchar(c);
+                putchar(cur);
             }
-            else if (c == '/')
+            putchar(cur);
+        }
+        else if (cur == '/')
+        {
+            last = cur;
+            if ((cur = getchar()) != '*')
             {
-                stack[count++] = c;
+                putchar(last);
+                putchar(cur);
+            }
+            else
+            {
+                last = ' ';
+                while (last != '*' || (cur = getchar()) != '/')
+                {
+                    last = cur;
+                }
             }
         }
         else
         {
-            if (stack[0] == '"' || stack[0] == '\'')
-            {
-                count = 0;
-                putchar(c);
-            }
+            putchar(cur);
         }
     }
     putchar('\n');
