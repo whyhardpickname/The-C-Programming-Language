@@ -1,44 +1,90 @@
 #include<stdio.h>
-
+/*abc*/
+/*"abc"*/
+char *s = "/*abc*/";
+void rcomment(int c);/*abc*/
+void in_comment(void);//abc
+void in_double_slash_comment(void);
+void echo_quote(int c);
+//abc
 int main()
 {
-    int cur;
-    int last = ' ';
-
-    while ((cur = getchar()) != EOF)
+    int c;
+    
+    while ((c = getchar()) != EOF)
     {
-        if (cur == '"')
+        rcomment(c);
+    }
+    return 0;
+}
+
+void rcomment(int c)
+{
+    int d;
+    
+    if (c == '/')
+    {
+        if ((d = getchar()) == '*')
         {
-            putchar(cur);
-            last = cur;
-            while ((cur = getchar()) != last)
-            {
-                putchar(cur);
-            }
-            putchar(cur);
+            in_comment();
         }
-        else if (cur == '/')
+        else if (d == '/')
         {
-            last = cur;
-            if ((cur = getchar()) != '*')
-            {
-                putchar(last);
-                putchar(cur);
-            }
-            else
-            {
-                last = ' ';
-                while (last != '*' || (cur = getchar()) != '/')
-                {
-                    last = cur;
-                }
-            }
+            in_double_slash_comment();
         }
         else
         {
-            putchar(cur);
+            putchar(c);
+            putchar(d);
         }
     }
-    putchar('\n');
-    return 0;
+    else if (c == '\'' || c == '"')
+    {
+        echo_quote(c);
+    }
+    else
+    {
+        putchar(c);
+    }
+}
+void in_comment(void)
+{
+    int c;
+    int d;
+
+    c = getchar();
+    d = getchar();
+
+    while (c != '*' || d != '/')
+    {
+        c = d;
+        d = getchar();
+    }
+}
+
+void echo_quote(int c)
+{
+    int d;
+
+    putchar(c);
+
+    while ((d = getchar()) != c)
+    {
+        putchar(d);
+        if (d == '\\')
+        {
+            putchar(getchar());
+        }
+    }
+    putchar(d);
+}
+
+void in_double_slash_comment(void)
+{
+    int c;
+
+    while ((c = getchar()) != '\n')
+    {
+    }
+    putchar(c);
 }
