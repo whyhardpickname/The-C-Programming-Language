@@ -1,77 +1,126 @@
 #include<stdio.h>
 
-char* check_pair(int c);
-int pair(int c);
+int parentheses = 0;
+int brackets = 0;
+int braces = 0;
+void in_comment();
+void echo_quote(int c);
+void search(int c);
 
 int main()
 {
     int c;
-
-    while((c = getchar()) != EOF)
+    extern int parentheses;
+    extern int brackets;
+    extern int braces;
+    while ((c = getchar()) != EOF) 
     {
-        check_pair(c);
+        int d;
+        if (c == '/')
+        {
+            if ((c = getchar()) == '*')
+            {
+                in_comment();
+            }
+            else
+            {
+                search(c);
+            }
+        }
+        else if (c == '"' || c == '\'')
+        {
+            echo_quote(c);
+        }
+        else
+        {
+            search(c);
+        }
+        
+        if (parentheses < 0)
+        {
+            printf("parentheses aren't match.");
+            parentheses = 0;
+            }
+            else if (brackets < 0)
+            {
+            printf("brackets aren't match");
+            brackets = 0;
+            }
+            else if (braces < 0)
+            {
+            printf("braces aren't match");
+            braces = 0;
+        }
     }
+
+    if (parentheses > 0)
+    {
+        printf("parentheses aren't match.");
+    }
+    else if (brackets > 0)
+    {
+        printf("brackets aren't match");
+    }
+    else if (braces > 0)
+    {
+        printf("braces aren't match");
+    }
+
     putchar('\n');
     return 0;
 }
 
-int pair(int c)
+void in_comment(int c)
 {
-    if (c == '\'')
+    int d = getchar();
+    int e = getchar();
+
+    while (d != '*' && e != '/')
     {
-        return '\'';
+        d = e;
+        e = getchar();
     }
-    else if (c == '"')
+}
+
+void echo_quote(int c)
+{
+    int d;
+    while ((d = getchar()) != c)
     {
-        return '"';
+        if (d == '\\')
+        {
+            getchar();
+        }
     }
-    else if (c == '(')
+}
+
+void search(int c)
+{
+    extern int parentheses;
+    extern int brackets;
+    extern int braces;
+    if (c == '(')
     {
-        return ')';
+        parentheses++;
     }
     else if (c == '[')
     {
-        return ']';
+        brackets++;
     }
     else if (c == '{')
     {
-        return '}';
+        braces++;
     }
-    return ' ';
-}
-
-char* check_pair(int c)
-{
-    char *s;
-
-    if (c == '\'')
+    else if (c == ')')
     {
-        int d;
-        d = getchar();
-        if (d == '\\')
-        {
-            d = getchar();
-        }
-        d = getchar();
-        if (d != '\'')
-        {
-            sprintf(s, "expected: %c", pair(c));
-        }
+        parentheses--;
     }
-    else
+    else if (c == ']')
     {
-        int d;
-
-        d = getchar();
-        while (d != pair(c) && d != ';')
-        {
-            d = getchar();
-        }
-
-        if (d == ';')
-        {
-            sprintf(s, "expected: %c", pair(c));
-        }
+        brackets--;
     }
-    return s;
+    else if (c == '}')
+    {
+        braces--;
+    }
 }
