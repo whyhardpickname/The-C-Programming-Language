@@ -4,6 +4,7 @@
 
 int main()
 {
+
     printf("%15s%12s%12s", "type name","MAX", "MIN");
     printf("\n");
 
@@ -35,6 +36,7 @@ int main()
     printf("\n");
     printf("%15s %12f", "double_min", DBL_EPSILON);
     printf("\n");
-    
+
+
     return 0;
 }
