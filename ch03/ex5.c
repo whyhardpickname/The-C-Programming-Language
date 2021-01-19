@@ -1,18 +1,33 @@
-//todo
 #include<stdio.h>
 
-#define abs(x) ((x) ? -(x) : (x))
+#define abs(x) ((x) < 0 ? -(x) : (x))
 
 void itob(int n, char s[], int b);
 void reverse(char s[]);
 
 int main()
 {
-    int n = 16;
     int b = 16;
     int len = 100;
     char s[len];
-    itob(n, s, b);
+    //测试0
+    itob(0, s, b);
+    printf("%s\n", s);
+    //9
+    itob(9, s, b);
+    printf("%s\n", s);
+    //10
+    itob(10, s, b);
+    printf("%s\n", s);
+    //15
+    itob(15, s, b);
+    printf("%s\n", s);
+    //16
+    itob(16, s, b);
+    printf("%s\n", s);
+    
+    //-2147483648
+    itob(-2147483648, s, b);
     printf("%s\n", s);
     return 0;
 }
@@ -34,15 +49,7 @@ void itob(int n, char s[], int b)
     do 
     {
         r = abs(n % b);
-        if (r >= 0 && r <= 9)
-        {
-            s[i++] = r + '0';
-        }
-        else 
-        {
-            //A的ASCII码是41,对应10
-            s[i++] = (char) (r + 31);
-        }
+        s[i++] = r <= 9 ? r + '0' : r + 'a' - 10;
     } 
     while ((n /= b) != 0);
 
