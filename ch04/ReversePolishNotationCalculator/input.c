@@ -1,16 +1,8 @@
-/* TODO 测试 */
-
 #include<stdio.h>
 #include<ctype.h>
+#include "calcu.h"
 
-#define NUMBER '0'     /* 标识找到一个数 */
-
-int getch(void); /* 从缓冲区获取一个字符 */
-void ungetch(int); /* 将当前字符退回缓冲区 */
-
-/* 
-    获取下一个操作数或运算符 
-*/
+/* 获取下一个操作数或运算符 */
 int getop(char s[])
 {
     int c; /* 接受字符 */

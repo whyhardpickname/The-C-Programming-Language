@@ -1,6 +1,5 @@
-/* TODO 测试 */
-
-#include<stdio.h>
+#include <stdio.h>
+#include "calcu.h"
 
 #define MAXVAL 100 /* 栈的最大深度 */
 
@@ -30,8 +29,24 @@ double pop(void)
     }
     else
     {
-        printf("%s", "The stack is empty.");
+        printf("%s", "The stack is empty.\n");
         return 0.0;
     }
     
+}
+
+/* 测试 */
+int main()
+{
+    push(1.0);
+    push(2.0);
+    push(3.0);
+    printf("%f\n", pop());
+    printf("%f\n", pop());
+    printf("%f\n", pop());
+    printf("%f\n", pop());
+
+    sp = MAXVAL;
+    push(4.0);
+
 }

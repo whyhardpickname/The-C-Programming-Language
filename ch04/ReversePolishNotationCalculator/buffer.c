@@ -1,6 +1,5 @@
-/* TODO 测试 */
-
-#include<stdio.h>
+#include <stdio.h>
+#include "calcu.h"
 
 #define BUFSIZE 100
 
@@ -26,4 +25,14 @@ void ungetch(char c)
     {
         printf("%s", "The buffer space is full.\n");
     }
+}
+
+/* 测试 */
+int main()
+{
+    /* 从缓冲区取字符 */
+    ungetch('a');
+    printf("%c\n", getch());
+    /* 从输入取字符 */
+    printf("%c\n", getch());
 }

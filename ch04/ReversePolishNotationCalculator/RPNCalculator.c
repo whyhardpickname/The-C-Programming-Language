@@ -1,14 +1,8 @@
-/* TODO 测试 */
-
-#include<stdio.h>
-#include<stdlib.h>      /* 调用atof函数,将字符值转为小数 */
+#include <stdio.h>
+#include <stdlib.h>      /* 调用atof函数,将字符值转为小数 */
+#include "calcu.h" /* 双引号使用相对路径,起点是项目总文件夹 */
 
 #define MAXOP 100        /* 操作数或操作符最大长度 */
-#define NUMBER '0'     /* 标识找到一个数 */
-
-int getop(char []);   /* 获取下一个操作数或操作符 */
-void push(double);      /* 将一个操作数压入栈 */
-double pop(void);     /* 将一个操作数弹出栈 */
 
 /* 
     逆波兰表达式计算器
