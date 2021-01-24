@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>      /* 调用atof函数,将字符值转为小数 */
+#include <math.h>
 #include "calcu.h" /* 双引号使用相对路径,起点是项目总文件夹 */
 
 #define MAXOP 100        /* 操作数或操作符最大长度 */
@@ -69,7 +70,19 @@ int main()
             }
             else
             {
-                printf("%s", "error,zero divisor.\n");
+                printf("error,zero divisor.\n");
+            }
+            break;
+
+        case '%':
+            op2 = pop();
+            if (op2 != 0.0)
+            {
+                push(fmod(pop(), op2));
+            }
+            else
+            {
+                printf("error,zero divisor.\n");
             }
             break;
         
@@ -78,7 +91,7 @@ int main()
             break;
         
         default:
-            printf("%s", "error,illegal operator.");
+            printf("error,illegal operator.\n");
             break;
         }
     }

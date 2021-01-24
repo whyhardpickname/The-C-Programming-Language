@@ -34,19 +34,3 @@ double pop(void)
     }
     
 }
-
-/* 测试 */
-int main()
-{
-    push(1.0);
-    push(2.0);
-    push(3.0);
-    printf("%f\n", pop());
-    printf("%f\n", pop());
-    printf("%f\n", pop());
-    printf("%f\n", pop());
-
-    sp = MAXVAL;
-    push(4.0);
-
-}
