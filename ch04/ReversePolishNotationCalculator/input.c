@@ -7,13 +7,29 @@ int getop(char s[])
 {
     int c; /* 接受字符 */
     int i; /* 字符数组下标 */
-    int next; /* 下一个字符 */
     /* 跳过空格并接受第一个字符*/
     while ((s[0] = c = getch()) == ' ' || c == '\t')
     {
     }
     /* 提前放置终止符,如果是操作符 */
     s[1] = '\0';
+    
+    /* 处理数学库函数 */
+    i = 0;
+    if (islower(c))
+    {
+        while(islower(s[++i] = c = getch()))
+        {
+        }
+        s[i] = '\0';
+        /* 回退换行符 */
+        if (c != EOF)
+        {
+            ungetch(c);
+        }
+        return NAME;
+    }
+
     /* 处理操作符情况 */
     if (!isdigit(c) && c != '.' && c != '-')
     {
@@ -23,16 +39,21 @@ int getop(char s[])
     /* 处理负号部分 */
     if (c == '-')
     {
-        next = getch();
-        if (!isdigit(next))
+        if (isdigit(c = getch()) || c == '.')
         {
-            return c;
+            s[++i] = c;
         }
-        c = next;
+        else
+        {
+            if (c != EOF)
+            {
+                ungetch(c);
+                return '-';
+            }
+        }
     }
 
     /* 处理整数部分 */
-    i = 0;
     if (isdigit(c))
     {
         /* ++i因为一开始已经接受了一个字符 */

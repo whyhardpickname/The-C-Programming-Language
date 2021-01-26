@@ -1,4 +1,6 @@
 #define NUMBER '0'     /* 标识找到一个数 */
+#define NAME 'n'    /* 表示一个函数名被找到 */
+
 
 void push(double);      /* 将一个操作数压入栈 */
 double pop(void);       /* 将一个操作数弹出栈 */

@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>      /* 调用atof函数,将字符值转为小数 */
 #include <math.h>
+#include <string.h>
 #include "calcu.h" /* 双引号使用相对路径,起点是项目总文件夹 */
 
 #define MAXOP 100        /* 操作数或操作符最大长度 */
+
+void clear(void);
 
 /* 
     逆波兰表达式计算器
@@ -38,6 +41,7 @@ int main()
      */
 
     int type;   /* 操作符或操作数类型 */
+    double op1; /* 二元运算符的第一个操作数 */
     double op2; /* 二元运算符的第二个操作数 */
     char s[MAXOP];  /* 下一个运算符或操作数 */
     while ((type = getop(s)) != EOF)
@@ -46,6 +50,26 @@ int main()
         {
         case NUMBER:
             push(atof(s));
+            break;
+
+        case NAME:
+            if (strcmp(s, "sin") == 0)
+            {
+                push(sin(pop()));
+            }
+            else if (strcmp(s, "exp") == 0)
+            {
+                push(exp(pop()));
+            }
+            else if (strcmp(s, "pow") == 0)
+            {
+                op2 = pop();
+                push(pow(pop(), op2));
+            }
+            else
+            {
+                printf("Invalid math function.\n");
+            }
             break;
         
         case '+':

@@ -32,5 +32,11 @@ double pop(void)
         printf("%s", "The stack is empty.\n");
         return 0.0;
     }
-    
 }
+
+/* 清空栈 */
+void clear(void)
+{
+    sp = 0;
+}
+
