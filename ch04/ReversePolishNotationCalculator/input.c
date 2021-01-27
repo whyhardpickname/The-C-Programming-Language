@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<ctype.h>
+#include <string.h>
 #include "calcu.h"
 
 /* 获取下一个操作数或运算符 */
@@ -13,7 +14,12 @@ int getop(char s[])
     }
     /* 提前放置终止符,如果是操作符 */
     s[1] = '\0';
-    
+
+    /* 处理大写字母变量 */
+    if (isupper(c))
+    {
+        return c;
+    }
     /* 处理数学库函数 */
     i = 0;
     if (islower(c))
@@ -75,4 +81,15 @@ int getop(char s[])
         ungetch(c);
     }
     return NUMBER;
+}
+
+/* 将整个字符串压回输入中 */
+/* 逆序压回,因为先进先出 */
+void ungets(char s[])
+{
+    int len = strlen(s);
+    while (len > 0)
+    {
+        ungetch(s[--len]);
+    }
 }
