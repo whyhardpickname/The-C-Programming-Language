@@ -3,8 +3,8 @@
 
 #define BUFSIZE 100
 
-char buf[BUFSIZE]; /* 缓冲区 */
-int bufp = 0; /* 缓冲区下一个空闲位置 */
+static int buf[BUFSIZE]; /* 缓冲区 使用int防止char转换成int时不是-1*/
+static int bufp = 0; /* 缓冲区下一个空闲位置 */
 
 /* 从缓冲区获取一个字符 */
 int getch(void)

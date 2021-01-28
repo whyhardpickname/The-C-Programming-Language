@@ -3,13 +3,32 @@
 #include <string.h>
 #include "calcu.h"
 
+#define MAXLINE 100
+
+int getLine(char s[], int maxline);
+char line[MAXLINE];
+int j = 0;
+
 /* 获取下一个操作数或运算符 */
 int getop(char s[])
 {
     int c; /* 接受字符 */
     int i; /* 字符数组下标 */
     /* 跳过空格并接受第一个字符*/
-    while ((s[0] = c = getch()) == ' ' || c == '\t')
+
+    if (line[j] == '\0')
+    {
+        if (getLine(line, MAXLINE) == 0)
+        {
+            return EOF;
+        }
+        else
+        {
+            j = 0;
+        }
+    }
+
+    while ((s[0] = c = line[j++]) == ' ' || c == '\t')
     {
     }
     /* 提前放置终止符,如果是操作符 */
@@ -24,14 +43,14 @@ int getop(char s[])
     i = 0;
     if (islower(c))
     {
-        while(islower(s[++i] = c = getch()))
+        while(islower(s[++i] = c = line[j++]))
         {
         }
         s[i] = '\0';
         /* 回退换行符 */
         if (c != EOF)
         {
-            ungetch(c);
+            j--;
         }
         return NAME;
     }
@@ -45,7 +64,7 @@ int getop(char s[])
     /* 处理负号部分 */
     if (c == '-')
     {
-        if (isdigit(c = getch()) || c == '.')
+        if (isdigit(c = line[j++]) || c == '.')
         {
             s[++i] = c;
         }
@@ -53,7 +72,7 @@ int getop(char s[])
         {
             if (c != EOF)
             {
-                ungetch(c);
+                j--;
                 return '-';
             }
         }
@@ -63,14 +82,14 @@ int getop(char s[])
     if (isdigit(c))
     {
         /* ++i因为一开始已经接受了一个字符 */
-        while (isdigit(s[++i] = c = getch()))
+        while (isdigit(s[++i] = c = line[j++]))
         {
         }
     }
     /* 处理小数部分 */
     if (c == '.')
     {
-        while(isdigit(s[++i] = c = getch()))
+        while(isdigit(s[++i] = c = line[j++]))
         {
         }
     }
@@ -78,18 +97,27 @@ int getop(char s[])
     /* 由于整数需要额外一个字符确定是否完整,因此确定完之后要将字符用于下次判断 */
     if (c != EOF)
     {
-        ungetch(c);
+        j--;
     }
     return NUMBER;
 }
-    
-/* 将整个字符串压回输入中 */
-/* 逆序压回,因为先进先出 */
-void ungets(char s[])
+
+int getLine(char s[], int maxline)
 {
-    int len = strlen(s);
-    while (len > 0)
+    int i;
+    int c;
+    
+    i = 0;
+    while ((c = getchar()) != EOF && c != '\n' && i < maxline - 1)
     {
-        ungetch(s[--len]);
+        s[i++] = c;
     }
+
+    if (c == '\n')
+    {
+        s[i++] = '\n';
+    }
+    s[i] = '\0';
+
+    return i;
 }

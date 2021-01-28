@@ -3,8 +3,8 @@
 
 #define MAXVAL 100 /* 栈的最大深度 */
 
-int sp = 0; /* 指向下一个栈空闲位置 */
-double val[MAXVAL]; /* 保存值的栈 */
+static int sp = 0; /* 指向下一个栈空闲位置 */
+static double val[MAXVAL]; /* 保存值的栈 */
 
 /* 将一个小数压入栈中 */
 void push(double f)

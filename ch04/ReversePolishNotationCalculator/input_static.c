@@ -6,11 +6,24 @@
 /* 获取下一个操作数或运算符 */
 int getop(char s[])
 {
+    static int lastc = 0;
     int c; /* 接受字符 */
     int i; /* 字符数组下标 */
     /* 跳过空格并接受第一个字符*/
-    while ((s[0] = c = getch()) == ' ' || c == '\t')
+
+    if (lastc == 0)
     {
+        c = getch();
+    }
+    else
+    {
+        c = lastc;
+        lastc = 0;
+    }
+
+    while ((s[0] = c) == ' ' || c == '\t')
+    {
+        c = getch();
     }
     /* 提前放置终止符,如果是操作符 */
     s[1] = '\0';
@@ -31,7 +44,7 @@ int getop(char s[])
         /* 回退换行符 */
         if (c != EOF)
         {
-            ungetch(c);
+            lastc = c;
         }
         return NAME;
     }
@@ -53,7 +66,7 @@ int getop(char s[])
         {
             if (c != EOF)
             {
-                ungetch(c);
+                lastc = c;
                 return '-';
             }
         }
@@ -78,7 +91,7 @@ int getop(char s[])
     /* 由于整数需要额外一个字符确定是否完整,因此确定完之后要将字符用于下次判断 */
     if (c != EOF)
     {
-        ungetch(c);
+        lastc = c;
     }
     return NUMBER;
 }
