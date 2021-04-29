@@ -7,22 +7,6 @@ int main()
     char *s = "abcdef";
     char *t = "def";
     printf("%d\n", strend(s, t));
-
-    s = "abcdefg";
-    t = "def";
-    printf("%d\n", strend(s, t));
-
-    s = "b";
-    t = "a";
-    printf("%d\n", strend(s, t));
-
-    s = "";
-    t = "a";
-    printf("%d\n", strend(s, t));
-
-    s = "";
-    t = "a";
-    printf("%d\n", strend(s, t));
 }
 
 /* 如果字符串t出现在字符串s的尾部，返回1。否则返回0。*/

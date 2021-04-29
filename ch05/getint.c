@@ -54,16 +54,10 @@ int main()
     int a[size];
 
     for (i = 0; i < size; i++) {
-        a[i] = -1;  
+        a[i] = -1;
     }
 
-    for (i = 0; i < size && getint(&a[i]) != EOF; i++) {
-        ;
-    }
-
-    for (i = 0; i < size; i++) {
-        printf("%d ", a[i]);
-    }
-    printf("\n");
+    int result = getint(&a[0]); //使用result防止a[0]先于getint计算之前
+    printf("%c %d\n", result, a[0]); //正常数字
     return 0;
 }

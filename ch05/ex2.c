@@ -15,14 +15,8 @@ int main()
         a[i] = -1;
     }
 
-    for (i = 0; i < size && getfloat(&a[i]) != EOF; i++) {
-        ;
-    }
-
-    for (i = 0; i < size; i++) {
-        printf("%.2f ", a[i]);
-    }
-    printf("\n");
+    int result = getfloat(&a[0]);
+    printf("%c %g\n", result, a[0]);
     return 0;
 }
 
@@ -52,7 +46,7 @@ int getfloat(double *pf)
                 ungetch(c);
             }
             ungetch(temp);
-            return c;
+            return temp;
         }
     }
 
