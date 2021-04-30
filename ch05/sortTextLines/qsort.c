@@ -1,24 +1,23 @@
-#include "headfiles.h"
 #include<string.h>
 
 void qsort(char *linesPtr[], int left, int right);
-// void swap(char * p1, char *p2);
 void swap(char *v[], int i, int j);
+// void swap(char * p1, char *p2);
 
 void qsort(char *linesPtr[], int left, int right) {
     int i;
     int last;
+
     if (left >= right) { /* 如果子数组元素个素小于2，则返回。 */
         return;
     }
     // int store = left;
     // swap(linesPtr[left], linesPtr[left]);
-    swap(linePtr, left, (left + right) / 2);
+    swap(linesPtr, left, (left + right) / 2);
     last = left;
 
     // int i;
-    for (i = left + 1; i <= right; i++)
-    {
+    for (i = left + 1; i <= right; i++) {
         // if (strlen(linesPtr[i]) < strlen(linesPtr[right])) {
         //     swap(linesPtr[store++], linesPtr[i]);
         // }

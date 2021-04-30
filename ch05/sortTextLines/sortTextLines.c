@@ -1,4 +1,10 @@
-#include "headfiles.h"
+#include <stdio.h>
+#include <string.h>
+#define MAXLINES 100 //进行排序的最大文本行数
+#define MAXSTORE 1000 /* 可用空间大小 */
+
+char lineStore[MAXSTORE]; /* alloc使用的内存空间 */
+char *linePtr[MAXLINES]; //指向文本行的指针数组
 
 int readLines(char *linePtr[], int maxLines);
 void qsort(char *linesPtr[], int left, int right);

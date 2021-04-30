@@ -1,5 +1,4 @@
-#include "headfiles.h"
-
+#include <stdio.h>
 void writeLines(char *linePtr[], int nlines) {
     // int i;
     // for (i = 0; i < nlines; i++) {
